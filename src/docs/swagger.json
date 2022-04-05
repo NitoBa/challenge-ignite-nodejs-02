@@ -1,0 +1,331 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "description": "This route is used to create a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Jon Snow"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "jonsnow@gmail.com"
+                  }
+                },
+                "required": ["name", "email"],
+                "example": {
+                  "name": "Jon Snow",
+                  "email": "jsonsnow@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "jon snow"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "jonsnow@gmail.com"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-04-05T08:40:11.021Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-04-05T08:40:11.021Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User already exists"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "description": "This route is used to get all users when the user is admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "jon snow"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "admin": {
+                        "type": "boolean",
+                        "example": false
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "example": "2022-04-05T08:40:11.021Z"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "example": "2022-04-05T08:40:11.021Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not is admin"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Missing user_id in header"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Show User Profile",
+        "description": "This route is used to show all information about a user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "jon snow"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "jonsnow@gmail.com"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-04-05T08:40:11.021Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-04-05T08:40:11.021Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Turn an user a admin",
+        "description": "This route is used to update a rule of a user to admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User rule updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6acd1379-8f15-469f-b964-55f45cda308a"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "jon snow"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "jonsnow@gmail.com"
+                    },
+                    "admin": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-04-05T08:40:11.021Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-04-05T08:40:11.021Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
